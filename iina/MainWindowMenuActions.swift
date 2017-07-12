@@ -10,7 +10,7 @@ import Cocoa
 
 extension MainWindowController {
 
-  func menuShowPlaylistPanel(_ sender: NSMenuItem) {
+  @objc func menuShowPlaylistPanel(_ sender: NSMenuItem) {
     if sideBarStatus == .hidden || sideBarStatus == .settings {
       playlistView.pleaseSwitchToTab(.playlist)
       playlistButtonAction(sender)
@@ -23,7 +23,7 @@ extension MainWindowController {
     }
   }
 
-  func menuShowChaptersPanel(_ sender: NSMenuItem) {
+  @objc func menuShowChaptersPanel(_ sender: NSMenuItem) {
     if sideBarStatus == .hidden || sideBarStatus == .settings {
       playlistView.pleaseSwitchToTab(.chapters)
       playlistButtonAction(sender)
@@ -36,7 +36,7 @@ extension MainWindowController {
     }
   }
 
-  func menuShowVideoQuickSettings(_ sender: NSMenuItem) {
+  @objc func menuShowVideoQuickSettings(_ sender: NSMenuItem) {
     if sideBarStatus == .hidden || sideBarStatus == .playlist {
       quickSettingView.pleaseSwitchToTab(.video)
       settingsButtonAction(sender)
@@ -49,7 +49,7 @@ extension MainWindowController {
     }
   }
 
-  func menuShowAudioQuickSettings(_ sender: NSMenuItem) {
+  @objc func menuShowAudioQuickSettings(_ sender: NSMenuItem) {
     if sideBarStatus == .hidden || sideBarStatus == .playlist {
       quickSettingView.pleaseSwitchToTab(.audio)
       settingsButtonAction(sender)
@@ -62,7 +62,7 @@ extension MainWindowController {
     }
   }
 
-  func menuShowSubQuickSettings(_ sender: NSMenuItem) {
+  @objc func menuShowSubQuickSettings(_ sender: NSMenuItem) {
     if sideBarStatus == .hidden || sideBarStatus == .playlist {
       quickSettingView.pleaseSwitchToTab(.sub)
       settingsButtonAction(sender)
@@ -75,7 +75,7 @@ extension MainWindowController {
     }
   }
 
-  func menuChangeWindowSize(_ sender: NSMenuItem) {
+  @objc func menuChangeWindowSize(_ sender: NSMenuItem) {
     // -1: normal(non-retina), same as 1 when on non-retina screen
     //  0: half
     //  1: normal
@@ -92,7 +92,7 @@ extension MainWindowController {
     let useRetinaSize = Preference.bool(for: .usePhysicalResolution)
     let logicalSize = NSRect(x: w.frame.origin.x, y: w.frame.origin.y, width: CGFloat(vw), height: CGFloat(vh))
     var retinaSize = useRetinaSize ? w.convertFromBacking(logicalSize) : logicalSize
-    let screenFrame = NSScreen.main()!.visibleFrame
+    let screenFrame = NSScreen.main!.visibleFrame
     let newFrame: NSRect
     let sizeMap: [CGFloat] = [0.5, 1, 2]
     let scaleStep: CGFloat = 25
@@ -123,13 +123,13 @@ extension MainWindowController {
     w.setFrame(newFrame, display: true, animate: true)
   }
 
-  func menuAlwaysOnTop(_ sender: AnyObject) {
+  @objc func menuAlwaysOnTop(_ sender: AnyObject) {
     isOntop = !isOntop
     setWindowFloatingOnTop(isOntop)
   }
 
   @available(macOS 10.12, *)
-  func menuTogglePIP(_ sender: NSMenuItem) {
+  @objc func menuTogglePIP(_ sender: NSMenuItem) {
     switch pipStatus {
     case .notInPIP:
       enterPIP()
@@ -140,11 +140,11 @@ extension MainWindowController {
     }
   }
 
-  func menuToggleFullScreen(_ sender: NSMenuItem) {
+  @objc func menuToggleFullScreen(_ sender: NSMenuItem) {
     toggleWindowFullScreen()
   }
   
-  func menuSwitchToMiniPlayer(_ sender: NSMenuItem) {
+  @objc func menuSwitchToMiniPlayer(_ sender: NSMenuItem) {
     player.switchToMiniPlayer()
   }
 }

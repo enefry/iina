@@ -178,7 +178,7 @@ extension NSMenu {
     let menuItem = NSMenuItem(title: string, action: selector, keyEquivalent: "")
     menuItem.tag = tag ?? -1
     menuItem.representedObject = obj
-    menuItem.state = stateOn ? NSOnState : NSOffState
+    menuItem.state = stateOn ? .onState : .offState
     self.addItem(menuItem)
   }
 }
@@ -269,8 +269,8 @@ extension NSMutableAttributedString {
     let range = NSRange(location: 0, length: self.length)
     let nsurl = NSURL(string: url)!
     self.beginEditing()
-    self.addAttribute(NSLinkAttributeName, value: nsurl, range: range)
-    self.addAttribute(NSFontAttributeName, value: font, range: range)
+    self.addAttribute(.link, value: nsurl, range: range)
+    self.addAttribute(.font, value: font, range: range)
     self.endEditing()
   }
 }
@@ -340,7 +340,7 @@ extension String {
 
   mutating func deleteLast(_ num: Int) {
     guard num <= characters.count else { self = ""; return }
-    self = self.substring(to: self.index(endIndex, offsetBy: -num))
+    self = String(self[...self.index(endIndex, offsetBy: -num)])
   }
 
   func countOccurances(of str: String, in range: Range<Index>?) -> Int {
